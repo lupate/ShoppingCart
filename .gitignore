@@ -1,0 +1,16 @@
+*.class
+
+*.mf
+
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+/ShoppingCart/nbproject/private/
+/ShoppingCart/build/
+/ShoppingCart/dist/
