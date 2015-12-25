@@ -5,7 +5,7 @@
  */
 package shoppingcart;
 
-import view.Login;
+import controller.MainController;
 
 /**
  *
@@ -18,8 +18,10 @@ public class ShoppingCart {
      */
     public static void main(String[] args) {
         // instantiate the first Class to be displayed .
-        Login login = new Login();
-        login.setVisible(true);
+//        Login login = new Login();
+//        login.setVisible(true);
+
+        MainController mainController = new MainController();
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.MainController;
 import controller.UserController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -16,11 +17,18 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    MainController controller;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+    }
+
+    public Login(MainController aThis) {
+        this();
+        controller = aThis;
     }
 
     /**
@@ -131,20 +139,26 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String name = jTextField2.getText();
         String password = jTextField1.getText();
-        UserController ucont = new UserController();
-        int exist = ucont.login(name, password);
-        if (exist > 0) {
-            this.setVisible(false);
-            Welcome w = new Welcome(exist);
-            w.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "من فضلك تأكد من صحة البيانات المدخلة وأعد المحاولة");
-        }
+//        UserController ucont = new UserController();
+//        int exist = ucont.login(name, password);
+//        if (exist > 0) {
+//            this.setVisible(false);
+//            Welcome w = new Welcome(exist);
+//            w.setVisible(true);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "من فضلك تأكد من صحة البيانات المدخلة وأعد المحاولة");
+//        }
+        controller.login(name, password);
+        
 
 //        this.setVisible(false);
 //        JOptionPane.showConfirmDialog(null, "Welcome Mr. " + name);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(null, message);
+    }
+    
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //<editor-fold defaultstate="collapsed" desc=" Center Screen code ">
         // Get the size of the screen
