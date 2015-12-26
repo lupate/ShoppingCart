@@ -18,9 +18,9 @@ public class Welcome extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Welcome(int user) {
+    public Welcome(String user) {
         initComponents();
-        jLabel1.setText(String.valueOf(user));
+        jLabel1.setText(user);
     }
 
     /**
@@ -91,6 +91,10 @@ public class Welcome extends javax.swing.JFrame {
                 new Welcome().setVisible(true);
             }
         });
+    }
+    
+    public void setUsersTableModel(Login[] users){
+//        users >> update model of table .. 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

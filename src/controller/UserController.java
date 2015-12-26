@@ -5,7 +5,7 @@
  */
 package controller;
 
-import model.Login;
+import dto.Login;
 import services.LoginService;
 
 /**

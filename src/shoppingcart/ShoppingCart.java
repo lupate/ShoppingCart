@@ -18,9 +18,6 @@ public class ShoppingCart {
      */
     public static void main(String[] args) {
         // instantiate the first Class to be displayed .
-//        Login login = new Login();
-//        login.setVisible(true);
-
         MainController mainController = new MainController();
     }
 

@@ -139,20 +139,8 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String name = jTextField2.getText();
         String password = jTextField1.getText();
-//        UserController ucont = new UserController();
-//        int exist = ucont.login(name, password);
-//        if (exist > 0) {
-//            this.setVisible(false);
-//            Welcome w = new Welcome(exist);
-//            w.setVisible(true);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "من فضلك تأكد من صحة البيانات المدخلة وأعد المحاولة");
-//        }
         controller.login(name, password);
         
-
-//        this.setVisible(false);
-//        JOptionPane.showConfirmDialog(null, "Welcome Mr. " + name);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void showErrorDialog(String message){

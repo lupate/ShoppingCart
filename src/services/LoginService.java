@@ -10,7 +10,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import model.Login;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import dto.Login;
+import servicespkg.DbService;
 
 /**
  *
@@ -27,10 +30,11 @@ public class LoginService {
     private Connection connection;
 
     public int checkUserExistence(Login logindata) {
-        try {
 
-            Class.forName(driver);
-            connection = DriverManager.getConnection(url + unicode, username, password);
+        try {
+//            Class.forName(driver);
+//            connection = DriverManager.getConnection(url + unicode, username, password);
+            Connection connection = DbService.getConnection();
 
             Statement stmnt = connection.createStatement();
             String query = "select user_id from user where email ='" + logindata.getName() + "'and password = '" + logindata.getPassword() + "'";
@@ -38,8 +42,7 @@ public class LoginService {
             if (rs.next()) {
                 return rs.getInt("user_id");
             }
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex);
+        } catch (SQLException ex) {
             return 0;
         }
         return 0;
