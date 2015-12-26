@@ -11,6 +11,8 @@
 *.war
 *.ear
 
+*.xml
+
 /ShoppingCart/nbproject/private/
 /ShoppingCart/build/
 /ShoppingCart/dist/
