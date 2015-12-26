@@ -8,7 +8,7 @@ public class JointUserRateProductUserService {
 		Connection connection = null;
 		JointUserRateProductUser[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<JointUserRateProductUser> list = new ArrayList<JointUserRateProductUser>();
 			JointUserRateProductUser item;
 			Statement stmnt = connection.createStatement();

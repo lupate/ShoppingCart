@@ -8,7 +8,7 @@ public class OnlineUsersService {
 		Connection connection = null;
 		OnlineUsers[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<OnlineUsers> list = new ArrayList<OnlineUsers>();
 			OnlineUsers item;
 			Statement stmnt = connection.createStatement();
@@ -36,7 +36,7 @@ public class OnlineUsersService {
 		Connection connection = null;
 		OnlineUsers item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM online_users WHERE idonline_users = " + idonlineUsers);
 			int count = 0;
@@ -69,7 +69,7 @@ public class OnlineUsersService {
 	public int insert(OnlineUsers item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO online_users VALUES(" + item.getIdonlineUsers()
  + ", " + item.getUserId()
@@ -96,7 +96,7 @@ public class OnlineUsersService {
 	public int update(OnlineUsers item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE online_users SET user_id = " + item.getUserId()
  + ", login_date = '" + item.getLoginDate() + " WHERE " + "idonline_users = "+ item.getIdonlineUsers();
@@ -122,7 +122,7 @@ public class OnlineUsersService {
 	public int delete(long idonlineUsers) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM online_users WHERE idonline_users = " + idonlineUsers);
 			stmnt.close();

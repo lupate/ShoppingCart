@@ -8,7 +8,7 @@ public class OrdersProductsService {
 		Connection connection = null;
 		OrdersProducts[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<OrdersProducts> list = new ArrayList<OrdersProducts>();
 			OrdersProducts item;
 			Statement stmnt = connection.createStatement();
@@ -37,7 +37,7 @@ public class OrdersProductsService {
 		Connection connection = null;
 		OrdersProducts item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM orders_products WHERE idorders_products = " + idordersProducts);
 			int count = 0;
@@ -71,7 +71,7 @@ public class OrdersProductsService {
 	public int insert(OrdersProducts item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO orders_products VALUES(" + item.getIdordersProducts()
  + ", " + item.getOrderId()
@@ -99,7 +99,7 @@ public class OrdersProductsService {
 	public int update(OrdersProducts item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE orders_products SET order_id = " + item.getOrderId()
  + ", user_id = " + item.getUserId()
@@ -126,7 +126,7 @@ public class OrdersProductsService {
 	public int delete(long idordersProducts) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM orders_products WHERE idorders_products = " + idordersProducts);
 			stmnt.close();

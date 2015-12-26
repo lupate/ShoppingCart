@@ -8,7 +8,7 @@ public class OrderService {
 		Connection connection = null;
 		Order[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<Order> list = new ArrayList<Order>();
 			Order item;
 			Statement stmnt = connection.createStatement();
@@ -38,7 +38,7 @@ public class OrderService {
 		Connection connection = null;
 		Order item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM order WHERE order_id = " + orderId);
 			int count = 0;
@@ -73,7 +73,7 @@ public class OrderService {
 	public int insert(Order item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO order VALUES(" + item.getOrderId()
  + ", " + item.getUserId()
@@ -102,7 +102,7 @@ public class OrderService {
 	public int update(Order item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE order SET user_id = " + item.getUserId()
  + ", status = " + item.getStatus()
@@ -130,7 +130,7 @@ public class OrderService {
 	public int delete(long orderId) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM order WHERE order_id = " + orderId);
 			stmnt.close();

@@ -11,7 +11,7 @@ public class JointOrdersProductsOrderService {
         Connection connection = null;
         JointOrdersProductsOrder[] arr = null;
         try {
-            connection = new DbService().getConnection();
+            connection = DbService.getConnection();
             ArrayList<JointOrdersProductsOrder> list = new ArrayList<JointOrdersProductsOrder>();
             JointOrdersProductsOrder item;
             Statement stmnt = connection.createStatement();

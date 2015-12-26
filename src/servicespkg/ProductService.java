@@ -8,7 +8,7 @@ public class ProductService {
 		Connection connection = null;
 		Product[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<Product> list = new ArrayList<Product>();
 			Product item;
 			Statement stmnt = connection.createStatement();
@@ -44,7 +44,7 @@ public class ProductService {
 		Connection connection = null;
 		Product item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM product WHERE prod_id = " + prodId);
 			int count = 0;
@@ -85,7 +85,7 @@ public class ProductService {
 	public int insert(Product item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO product VALUES(" + item.getProdId()
  + ", " + item.getProdSize()
@@ -120,7 +120,7 @@ public class ProductService {
 	public int update(Product item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE product SET prod_size = " + item.getProdSize()
  + ", prod_condition = " + item.getProdCondition()
@@ -154,7 +154,7 @@ public class ProductService {
 	public int delete(long prodId) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM product WHERE prod_id = " + prodId);
 			stmnt.close();

@@ -8,7 +8,7 @@ public class UserRateProductService {
 		Connection connection = null;
 		UserRateProduct[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<UserRateProduct> list = new ArrayList<UserRateProduct>();
 			UserRateProduct item;
 			Statement stmnt = connection.createStatement();
@@ -36,7 +36,7 @@ public class UserRateProductService {
 		Connection connection = null;
 		UserRateProduct item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM user_rate_product WHERE prod_id = " + prodId + " and user_id = " + userId);
 			int count = 0;
@@ -69,7 +69,7 @@ public class UserRateProductService {
 	public int insert(UserRateProduct item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO user_rate_product VALUES(" + item.getProdId()
  + ", " + item.getUserId()
@@ -96,7 +96,7 @@ public class UserRateProductService {
 	public int update(UserRateProduct item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE user_rate_product SET user_id = " + item.getUserId()
  + ", like_count = '" + item.getLikeCount() + " WHERE " + "prod_id = "+ item.getProdId();
@@ -122,7 +122,7 @@ public class UserRateProductService {
 	public int delete(long prodId, long userId) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM user_rate_product WHERE prod_id = " + prodId + " and user_id = " + userId);
 			stmnt.close();

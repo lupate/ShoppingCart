@@ -8,7 +8,7 @@ public class UserRateSupplierService {
 		Connection connection = null;
 		UserRateSupplier[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<UserRateSupplier> list = new ArrayList<UserRateSupplier>();
 			UserRateSupplier item;
 			Statement stmnt = connection.createStatement();
@@ -36,7 +36,7 @@ public class UserRateSupplierService {
 		Connection connection = null;
 		UserRateSupplier item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM user_rate_supplier WHERE sup_id = " + supId + " and user_id = " + userId);
 			int count = 0;
@@ -69,7 +69,7 @@ public class UserRateSupplierService {
 	public int insert(UserRateSupplier item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO user_rate_supplier VALUES(" + item.getUserId()
  + ", " + item.getSupId()
@@ -96,7 +96,7 @@ public class UserRateSupplierService {
 	public int update(UserRateSupplier item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE user_rate_supplier SET user_id = " + item.getUserId()
  + ", like_count = " + item.getLikeCount() + " WHERE " + "sup_id = "+ item.getSupId();
@@ -122,7 +122,7 @@ public class UserRateSupplierService {
 	public int delete(long supId, long userId) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM user_rate_supplier WHERE sup_id = " + supId + " and user_id = " + userId);
 			stmnt.close();

@@ -8,7 +8,7 @@ public class CategoryService {
 		Connection connection = null;
 		Category[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<Category> list = new ArrayList<Category>();
 			Category item;
 			Statement stmnt = connection.createStatement();
@@ -35,7 +35,7 @@ public class CategoryService {
 		Connection connection = null;
 		Category item = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM category WHERE cat_id = " + catId);
 			int count = 0;
@@ -67,7 +67,7 @@ public class CategoryService {
 	public int insert(Category item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String insertQuery = "INSERT INTO category VALUES(" + item.getCatId()
  + ", '" + item.getCatDesc() + ")";
@@ -93,7 +93,7 @@ public class CategoryService {
 	public int update(Category item) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			String updateQuery = "UPDATE category SET cat_desc = '" + item.getCatDesc() + " WHERE " + "cat_id = "+ item.getCatId();
 			updateQuery = updateQuery.replace("'null'", "null");
@@ -118,7 +118,7 @@ public class CategoryService {
 	public int delete(long catId) throws SQLException {
 		Connection connection = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
 			int rowsAffected = stmnt.executeUpdate("DELETE FROM category WHERE cat_id = " + catId);
 			stmnt.close();

@@ -8,7 +8,7 @@ public class JointProductCategoryService {
 		Connection connection = null;
 		JointProductCategory[] arr = null;
 		try {
-			connection = new DbService().getConnection();
+			connection = DbService.getConnection();
 			ArrayList<JointProductCategory> list = new ArrayList<JointProductCategory>();
 			JointProductCategory item;
 			Statement stmnt = connection.createStatement();
