@@ -1,12 +1,12 @@
 package beanspkg;
 import java.sql.*;
 public class User {
-	private long userId;
-	public long getUserId() {
+	private int userId;
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -55,12 +55,12 @@ public class User {
 		this.password = password;
 	}
 
-	private long phone;
-	public long getPhone() {
+	private String phone;
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -73,12 +73,12 @@ public class User {
 		this.photo = photo;
 	}
 
-	private long userType;
-	public long getUserType() {
+	private int userType;
+	public int getUserType() {
 		return userType;
 	}
 
-	public void setUserType(long userType) {
+	public void setUserType(int userType) {
 		this.userType = userType;
 	}
 

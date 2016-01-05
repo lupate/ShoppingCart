@@ -19,15 +19,15 @@ public class UserService {
             ResultSet rs = stmnt.executeQuery("SELECT * FROM user");
             while (rs.next()) {
                 item = new User();
-                item.setUserId(rs.getLong(1));
+                item.setUserId(rs.getInt(1));
                 item.setFullName(rs.getString(2));
                 item.setAddress(rs.getString(3));
                 item.setCity(rs.getLong(4));
                 item.setEmail(rs.getString(5));
                 item.setPassword(rs.getString(6));
-                item.setPhone(rs.getLong(7));
+                item.setPhone(rs.getString(7));
                 item.setPhoto(rs.getBlob(8));
-                item.setUserType(rs.getLong(9));
+                item.setUserType(rs.getInt(9));
                 item.setCompany(rs.getString(10));
                 list.add(item);
             }
@@ -54,15 +54,15 @@ public class UserService {
                 count++;
                 if (count == 1) {
                     item = new User();
-                    item.setUserId(rs.getLong(1));
+                    item.setUserId(rs.getInt(1));
                     item.setFullName(rs.getString(2));
                     item.setAddress(rs.getString(3));
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getLong(7));
+                    item.setPhone(rs.getString(7));
                     item.setPhoto(rs.getBlob(8));
-                    item.setUserType(rs.getLong(9));
+                    item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
                 } else {
                     throw new MoreThanOneItemException();
@@ -93,15 +93,16 @@ public class UserService {
                 count++;
                 if (count == 1) {
                     item = new beanspkg.User();
-                    item.setUserId(rs.getLong(1));
+                    item.setUserId(rs.getInt(1));
+                    System.out.println("login" + item.getUserId());
                     item.setFullName(rs.getString(2));
                     item.setAddress(rs.getString(3));
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getLong(7));
+                    item.setPhone(rs.getString(7));
                     item.setPhoto(rs.getBlob(8));
-                    item.setUserType(rs.getLong(9));
+                    item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
                 } else {
                     throw new MoreThanOneItemException();
@@ -110,12 +111,11 @@ public class UserService {
 
             rs.close();
             stmnt.close();
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
-            return item;
+        } catch (Exception e) {
+
+            return null;
         }
+        return item;
     }
 
     public int insert(User item) throws SQLException {
@@ -152,31 +152,25 @@ public class UserService {
 
     public int update(User item) throws SQLException {
         Connection connection = null;
-        try {
-            connection = DbService.getConnection();
-            Statement stmnt = connection.createStatement();
-            String updateQuery = "UPDATE user SET full_name = '" + item.getFullName()
-                    + "', address = '" + item.getAddress()
-                    + "', city = " + item.getCity()
-                    + ", email = '" + item.getEmail()
-                    + "', password = '" + item.getPassword()
-                    + "', phone = " + item.getPhone()
-                    + ", photo = " + item.getPhoto()
-                    + ", user_type = " + item.getUserType()
-                    + ", company = '" + item.getCompany() + "' WHERE " + "user_id = " + item.getUserId();
-            updateQuery = updateQuery.replace("'null'", "null");
-            int rowsAffected = stmnt.executeUpdate(updateQuery);
-            stmnt.close();
-            if (rowsAffected != 0) {
-                return rowsAffected;
-            } else {
-                return -1;
-            }
-
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
+        connection = DbService.getConnection();
+        Statement stmnt = connection.createStatement();
+        System.out.println("User ID" + item.getUserId());
+        String updateQuery = "UPDATE user SET full_name = '" + item.getFullName()
+                + "', address = '" + item.getAddress()
+                + "', city = " + item.getCity()
+                + ", email = '" + item.getEmail()
+                + "', password = '" + item.getPassword()
+                + "', phone = " + item.getPhone()
+                + ", photo = " + item.getPhoto()
+                + ", user_type = " + item.getUserType()
+                + ", company = '" + item.getCompany() + "' WHERE " + "user_id = " + item.getUserId();
+        updateQuery = updateQuery.replace("'null'", "null");
+        int rowsAffected = stmnt.executeUpdate(updateQuery);
+        stmnt.close();
+        if (rowsAffected != 0) {
+            return rowsAffected;
+        } else {
+            return -1;
         }
 
     }

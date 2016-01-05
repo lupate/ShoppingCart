@@ -10,12 +10,12 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	private long userId;
-	public long getUserId() {
+	private int userId;
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 

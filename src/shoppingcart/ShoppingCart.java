@@ -6,7 +6,6 @@
 package shoppingcart;
 
 import controller.MainController;
-
 /**
  *
  * @author Muhammad Lupate
@@ -18,6 +17,7 @@ public class ShoppingCart {
      */
     public static void main(String[] args) {
         // instantiate the first Class to be displayed .
+       
         MainController mainController = new MainController();
     }
 

@@ -16,7 +16,7 @@ public class OrderService {
 			while(rs.next()){
 				item = new Order();
 				item.setOrderId(rs.getLong(1));
-				item.setUserId(rs.getLong(2));
+				item.setUserId(rs.getInt(2));
 				item.setStatus(rs.getLong(3));
 				item.setDeliveryDate(rs.getTimestamp(4));
 				item.setAddress(rs.getString(5));
@@ -29,12 +29,24 @@ public class OrderService {
 
 		finally {
 			if(connection != null)connection.close();
-			return arr;
-		}
-
+		return arr;
 	}
+}
+        
+        //make select return result set
+        public ResultSet selectDataAsRS() throws SQLException {
+		Connection connection = null;
+		Order[] arr = null;
+		
+			connection = DbService.getConnection();
+			ArrayList<Order> list = new ArrayList<Order>();
+			Order item;
+			Statement stmnt = connection.createStatement();
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM `scart`.`Order`");
+                return rs;               
+        }
 
-	public Order selectOne(long orderId) throws SQLException {
+	public Order selectOne(int orderId) throws SQLException {
 		Connection connection = null;
 		Order item = null;
 		try {
@@ -47,7 +59,7 @@ public class OrderService {
 				if(count == 1){
 					item = new Order();
 					item.setOrderId(rs.getLong(1));
-					item.setUserId(rs.getLong(2));
+					item.setUserId(rs.getInt(2));
 					item.setStatus(rs.getLong(3));
 					item.setDeliveryDate(rs.getTimestamp(4));
 					item.setAddress(rs.getString(5));
