@@ -45,7 +45,18 @@ public class OrderService {
 			ResultSet rs = stmnt.executeQuery("SELECT * FROM `scart`.`Order`");
                 return rs;               
         }
-
+      
+        public ResultSet selectDataWithConditionAsRS() throws SQLException {
+		Connection connection = null;
+		Order[] arr = null;
+		
+			connection = DbService.getConnection();
+			ArrayList<Order> list = new ArrayList<Order>();
+			Order item;
+			Statement stmnt = connection.createStatement();
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM `scart`.`Order` where status=  " + 0);
+                return rs;               
+        }
 	public Order selectOne(int orderId) throws SQLException {
 		Connection connection = null;
 		Order item = null;

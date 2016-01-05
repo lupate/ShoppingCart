@@ -94,6 +94,17 @@ public class MainController {
         }
         return rs;
     }
+    public ResultSet showPendingOrders() {
+        OrderService orderService = new OrderService();
+        DefaultTableModel model = new DefaultTableModel();
+        ResultSet rs = null;
+        try {
+            rs = orderService.selectDataWithConditionAsRS();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
     public void login(String name, String password) {
         try {
