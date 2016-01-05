@@ -70,7 +70,6 @@ public class MainController {
     }
 
     //Customer buttons
-
     public void showCProfile() {
         currentForm.setVisible(false);
         currentForm = new UserProfile(this);
@@ -119,7 +118,7 @@ public class MainController {
                 //currentForm = new AdminProfile(this);
                 break;
             case 2:
-               // currentForm = new SupplierProfile(this);
+                // currentForm = new SupplierProfile(this);
                 break;
             case 3:
                 currentForm = new UserProfile(this);
@@ -134,9 +133,8 @@ public class MainController {
     }
 
     //Load Profile data  WRONG !!   "Edited"
-
     public String[] loadDataToForm() {
-        String[] data= new String[3];
+        String[] data = new String[3];
         data[0] = userExist.getFullName();
         data[1] = userExist.getEmail();
         data[2] = userExist.getPhone();
@@ -144,7 +142,6 @@ public class MainController {
     }
 
     //Update data from form to DB
-
     public void updateData(String t1, String t2, String t3, String t4) {
         UserService uService = new UserService();
         System.out.println("UserExist" + userExist.getUserId());
@@ -165,61 +162,6 @@ public class MainController {
         }
 
     }
-    /*
-    //Load Data to table
-    public ResultSet loadOrdersToTable(){
-        OrderService o= new OrderService();
-        // DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-         ResultSet rs = null;
-        try {
-            rs = o.selectDataAsRS();
-        } catch (SQLException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
-         //jTable.setModel(DbUtils.resultSetToTableModel(rs));
-        
-        
-    }
-*/
-    /*
-     public void buttonClicked(String className) {
-     try {
-     Class <?> type = Class.forName(className);
-     currentForm.setVisible(false);
-     currentForm = new type(this);
-     currentForm.setVisible(true);
-     } catch (ClassNotFoundException ex) {
-     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     }
-     */
+   
 }
-/*  public void ViewProducts1(JTable table) {
- table=new JTable();
- ProductService productService = new ProductService();
- try {
- beanspkg.Product[] productsExist = productService.selectAll();
- DefaultTableModel model = (DefaultTableModel) table.getModel();
-
- for (Product product : productsExist) {
- prodid.add(product.getProdId());
- prodName.add(product.getProdName());
-
- }
-
- Object[] arr = prodid.toArray();
- Object[] names = prodName.toArray();
-
- model.addColumn("id", arr);
- //model.addRow(arr);
- model.addColumn("Name", names);
- } catch (SQLException ex) {
- Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
- }
-        
- }
- */
-    // add more methods .. 
 
