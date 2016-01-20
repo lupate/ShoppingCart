@@ -1,5 +1,4 @@
 package beanspkg;
-import java.sql.*;
 public class UserRateProduct {
 	private long prodId;
 	public long getProdId() {

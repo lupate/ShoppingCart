@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Muhammad Lupate
+ * @author JAMEO
  */
 public class Login extends javax.swing.JFrame {
 
@@ -28,6 +28,8 @@ public class Login extends javax.swing.JFrame {
     public Login(MainController aThis) {
         this();
         controller = aThis;
+        Utility.centerFrame(this);
+        Utility.setFormIcon(this);
     }
 
      @SuppressWarnings("unchecked")
@@ -44,11 +46,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hamouk5a Store");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("User Name");
@@ -117,7 +114,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(0);
+        controller.backToHome();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -131,22 +128,6 @@ public class Login extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, message);
     }
     
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //<editor-fold defaultstate="collapsed" desc=" Center Screen code ">
-        // Get the size of the screen
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // Determine the new location of the window
-        int w = this.getSize().width;
-        int h = this.getSize().height;
-        int x = (dim.width - w) / 2;
-        int y = (dim.height - h) / 2;
-
-        // Move the window
-        this.setLocation(x, y);
-//        </editor-fold>
-    }//GEN-LAST:event_formWindowActivated
-
     /**
      * @param args the command line arguments
      */

@@ -41,6 +41,14 @@ public class UserService {
             return arr;
         }
     }
+    
+    public ResultSet selectAllSuppliers() throws SQLException {
+        Connection connection = null;
+            connection = DbService.getConnection();
+            Statement stmnt = connection.createStatement();
+            ResultSet rs = stmnt.executeQuery("SELECT full_name FROM user where user_type = 2");
+        return rs;
+    }
 
     public User selectOne(long userId) throws SQLException {
         Connection connection = null;

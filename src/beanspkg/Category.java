@@ -1,5 +1,4 @@
 package beanspkg;
-import java.sql.*;
 public class Category {
 	private long catId;
 	public long getCatId() {

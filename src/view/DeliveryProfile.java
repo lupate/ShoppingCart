@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Radiant
+ * @author JAMEO
  */
 public class DeliveryProfile extends javax.swing.JFrame {
 
@@ -35,7 +35,8 @@ public class DeliveryProfile extends javax.swing.JFrame {
     public DeliveryProfile(MainController athis) {
          this();
         controller = athis;
-        Utility.centerFrame(this); // WRONG !!   " Edited :)"
+        Utility.centerFrame(this);
+        Utility.setFormIcon(this);
     }
 
     
@@ -68,11 +69,14 @@ public class DeliveryProfile extends javax.swing.JFrame {
         phone = new javax.swing.JTextField();
         jPassword = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Deliveryboy Profile");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("My Profile");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -244,7 +248,7 @@ public class DeliveryProfile extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        System.exit(0);
+        controller.backToHome();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -290,68 +294,14 @@ public class DeliveryProfile extends javax.swing.JFrame {
             }
         }
 
-        }
-  /*      private Connection connection;
-        public String DisplayData() {
-
-            try {
-
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url + unicode, username, password);
-
-                Statement stmnt = connection.createStatement();
-                String query = "select * from user";
-                ResultSet rs = stmnt.executeQuery(query);
-                while (rs.next()) {
-                    name.setText(rs.getString("full_name"));
-
-                    //     jTextField4.setText(rs.getString("address"));
-                    //      jTextField5.setText(rs.getString("city"));
-                    phone.setText(rs.getString("phone"));
-                    image.setText(rs.getString("photo"));
-                    jPassword.setText(rs.getString("password"));
-                    email.setText(rs.getString("email"));
-                }
-            } catch (SQLException | ClassNotFoundException ex) {
-                System.out.println(ex);
-                return null;
-            }
-            return null;
-        }
-
-        public void updateMethod(){
-
-            try {
-
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url + unicode, username, password);
-                Statement stmnt = connection.createStatement();
-
-                String mail=email.getText();
-                String phonee=phone.getText();
-                String emaill = email.getText();
-                char[] password= jPassword.getPassword();
-                String photo=image.getText();
-
-                String query="UPDATE user set phone'"+phone+"' ,email='"+email+"' ,password='"+password+"' Where user_id=id";
-                ResultSet rs = stmnt.executeQuery(query);
-
-            } catch (SQLException | ClassNotFoundException ex) {
-                System.out.println(ex
-                );
-            }
-
-            JOptionPane.showConfirmDialog(null, " Are you Sure? ");
-
     }//GEN-LAST:event_chooseActionPerformed
-*/
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         String n = name.getText();
         String e = email.getText();
         String ph = phone.getText();
         String pass = jPassword.getText();
-        controller.updateData(n, e, ph, pass); // sending component instead of its input STR'ing !!
+        controller.updateData(n, e, ph, pass); 
        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -365,8 +315,13 @@ public class DeliveryProfile extends javax.swing.JFrame {
         name.setText(data[0]);
         email.setText(data[1]);
         phone.setText(data[2]);
-        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       
+        controller.signIn();
+
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

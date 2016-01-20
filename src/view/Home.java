@@ -27,7 +27,7 @@ public class Home extends javax.swing.JFrame {
         this();
         controller = athis;
         Utility.centerFrame(this);
-
+        Utility.setFormIcon(this);
     }
 
     /**

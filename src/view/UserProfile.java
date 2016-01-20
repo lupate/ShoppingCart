@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Radiant
+ * @author JAMEO
  */
 public class UserProfile extends javax.swing.JFrame {
 
@@ -39,7 +39,7 @@ public class UserProfile extends javax.swing.JFrame {
         this();
         controller = aThis;
         Utility.centerFrame(this);
-        
+        Utility.setFormIcon(this);
     }
     
 
@@ -64,11 +64,13 @@ public class UserProfile extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Customer Profile");
+        setTitle("My Profile");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -83,6 +85,11 @@ public class UserProfile extends javax.swing.JFrame {
         jLabel6.setText("Image");
 
         jButton2.setText("Edit");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Browse");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -223,9 +230,8 @@ public class UserProfile extends javax.swing.JFrame {
        
          byte[] productImage = null;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
          
-                JFileChooser filechooser = new JFileChooser();
+        JFileChooser filechooser = new JFileChooser();
         filechooser.showOpenDialog(null);
         //get getSelectedFile path
         File file = filechooser.getSelectedFile();
@@ -317,24 +323,40 @@ public class UserProfile extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        controller.browseProducts();// TODO add your handling code here:
+        controller.browseProducts();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-       System.exit(0);
-        // TODO add your handling code here:
+       controller.backToHome();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_imageActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        String n = name.getText();
+        String e = email.getText();
+        String ph = phone.getText();
+        String pass = jPassword.getText();
+        controller.updateData(n, e, ph, pass); 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-       // controller.loadDataToForm(name, email, phone);
-        // TODO add your handling code here:
+        
+        String[] data = controller.loadDataToForm();
+        name.setText(data[0]);
+        email.setText(data[1]);
+        phone.setText(data[2]);
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+         controller.backToHome();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

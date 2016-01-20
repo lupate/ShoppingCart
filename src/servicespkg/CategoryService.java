@@ -7,7 +7,6 @@ public class CategoryService {
 	public Category[] selectAll() throws SQLException {
 		Connection connection = null;
 		Category[] arr = null;
-		try {
 			connection = DbService.getConnection();
 			ArrayList<Category> list = new ArrayList<Category>();
 			Category item;
@@ -22,13 +21,17 @@ public class CategoryService {
 
 			arr = new Category[list.size()];
 			list.toArray(arr);
-		}
-
-		finally {
-			if(connection != null)connection.close();
-			return arr;
-		}
-
+		return arr;
+	}
+      
+        public ResultSet selectAllCategories() throws SQLException {
+		Connection connection = null;
+			connection = DbService.getConnection();
+			Category item;
+			Statement stmnt = connection.createStatement();
+			ResultSet rs = stmnt.executeQuery("SELECT cat_desc FROM category");
+			
+		return rs;
 	}
 
 	public Category selectOne(long catId) throws SQLException {
@@ -69,8 +72,7 @@ public class CategoryService {
 		try {
 			connection = DbService.getConnection();
 			Statement stmnt = connection.createStatement();
-			String insertQuery = "INSERT INTO category VALUES(" + item.getCatId()
- + ", '" + item.getCatDesc() + ")";
+			String insertQuery = "INSERT INTO category VALUES(" + item.getCatId()+ ", '" + item.getCatDesc() + ")";
 			insertQuery = insertQuery.replace("'null'", "null");
 			int rowsAffected = stmnt.executeUpdate(insertQuery);
 			stmnt.close();
