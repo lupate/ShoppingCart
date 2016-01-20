@@ -25,7 +25,7 @@ public class UserService {
                 item.setCity(rs.getLong(4));
                 item.setEmail(rs.getString(5));
                 item.setPassword(rs.getString(6));
-                item.setPhone(rs.getString(7));
+                item.setPhone(rs.getInt(7));
                 item.setPhoto(rs.getBlob(8));
                 item.setUserType(rs.getInt(9));
                 item.setCompany(rs.getString(10));
@@ -68,7 +68,7 @@ public class UserService {
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getString(7));
+                    item.setPhone(rs.getInt(7));
                     item.setPhoto(rs.getBlob(8));
                     item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
@@ -108,7 +108,7 @@ public class UserService {
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getString(7));
+                    item.setPhone(rs.getInt(7));
                     item.setPhoto(rs.getBlob(8));
                     item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
@@ -157,6 +157,39 @@ public class UserService {
         }
 
     }
+    
+    //insert preparedst
+    public int insert2(User item) throws SQLException {
+        Connection connection = null;
+        try {
+            connection = DbService.getConnection();
+            String insertQuery = "INSERT INTO user VALUES(?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pst = connection.prepareStatement(insertQuery);
+            pst.setString(1,null);
+            pst.setString(2,item.getFullName());
+            pst.setString(3,item.getAddress());
+            pst.setString(4, String.valueOf(item.getCity()));
+            pst.setString(5,item.getEmail());
+            pst.setString(6,item.getPassword());
+            pst.setString(7,String.valueOf(item.getPhone()));
+            pst.setBytes(8, item.getPhoto2());
+            pst.setString(9,String.valueOf(item.getUserType()));
+            pst.setString(10, item.getCompany());
+           
+            int rowsAffected =pst.executeUpdate();
+            
+            if (rowsAffected != 0) {
+                return rowsAffected;
+            } else {
+                return -1;
+            }
+
+        } finally {
+
+        }
+
+    }
+    //
 
     public int update(User item) throws SQLException {
         Connection connection = null;
@@ -182,6 +215,42 @@ public class UserService {
         }
 
     }
+    
+    //new update preparedstatment
+    public int update2(User item) throws SQLException {
+
+        Connection connection = null;
+        try {
+            connection = DbService.getConnection();
+            String updateQuery = "update user set full_name=?,address=?,city=?,email=?,password=?,phone=?,photo=?,user_type=?,company=? where user_id=?";
+            PreparedStatement pst = connection.prepareStatement(updateQuery);
+            
+            pst.setString(1,item.getFullName());
+            pst.setString(2,item.getAddress());
+            pst.setString(3, String.valueOf(item.getCity()));
+            pst.setString(4,item.getEmail());
+            pst.setString(5,item.getPassword());
+            pst.setString(6,String.valueOf(item.getPhone()));
+            pst.setBytes(7, item.getPhoto2());
+            pst.setString(8,String.valueOf(item.getUserType()));
+            pst.setString(9, item.getCompany());
+            pst.setString(10,String.valueOf(item.getUserId()));
+            
+            
+            int rowsAffected =pst.executeUpdate();
+           
+            if (rowsAffected != 0) {
+                return rowsAffected;
+            } else {
+                return -1;
+            }
+
+        } finally {
+
+        }
+
+    }
+    //
 
     public int delete(long userId) throws SQLException {
         Connection connection = null;

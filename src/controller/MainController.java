@@ -8,6 +8,8 @@ package controller;
 import beanspkg.Order;
 import beanspkg.User;
 import beanspkg.UserRateProduct;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,6 +25,12 @@ import servicespkg.OrderService;
 import servicespkg.ProductService;
 import servicespkg.UserRateProductService;
 import servicespkg.UserService;
+import view.AddDeliveryBoy;
+import view.AddSupplier;
+import view.AdminOrders;
+import view.AdminProductDetails;
+import view.AdminProfile;
+import view.AdminViewProducts;
 import view.DeliveryOrder;
 import view.DeliveryProfile;
 import view.Home;
@@ -148,10 +156,10 @@ public class MainController {
     public JFrame checkUserType(int type) {
         switch (type) {
             case 1:
-                //currentForm = new AdminProfile(this);
+                currentForm = new AdminViewProducts(this);
                 break;
             case 2:
-                // currentForm = new SupplierProfile(this);
+                 //currentForm = new SupplierProfile(this);
                 break;
             case 3:
                 currentForm = new UserProfile(this);
@@ -170,7 +178,7 @@ public class MainController {
         String[] data = new String[3];
         data[0] = userExist.getFullName();
         data[1] = userExist.getEmail();
-        data[2] = userExist.getPhone();
+        //data[2] = userExist.getPhone();
         return data;
     }
 
@@ -179,7 +187,7 @@ public class MainController {
         UserService uService = new UserService();
         userExist.setFullName(t1);
         userExist.setEmail(t2);
-        userExist.setPhone(t3);
+        //userExist.setPhone(t3);
         userExist.setPassword(t4);
         try {
             int worAffected = uService.update(userExist);
@@ -221,7 +229,7 @@ public class MainController {
         try {
            order = o.selectOne(order_id);
            //order.setOrderId(order_id);
-           order.setUserId(userExist.getUserId());
+           //order.setUserId(userExist.getUserId());
            order.setStatus(1);
            java.util.Date date= new java.util.Date();
            order.setDeliveryDate(new Timestamp(date.getTime()));
@@ -364,9 +372,9 @@ public class MainController {
     }
 
     // Get current user id
-    public int getUserID() {
-        return userExist.getUserId();
-    }
+//    public int getUserID() {
+//        return userExist.getUserId();
+//    }
 
     //Get the orderd product
     public ResultSet getOneProductOrder() {
@@ -429,7 +437,7 @@ public class MainController {
     }
     //Save order into DB
     public void saveOrder(){
-        order.setUserId(userExist.getUserId());
+        //order.setUserId(userExist.getUserId());
         order.setAddress(userExist.getAddress());
         order.setStatus(0);
         try {
@@ -438,6 +446,246 @@ public class MainController {
             System.out.println("Check your DB server");
         }
     }
-
     
+    ///////////////////mohammed///////////
+    
+     //centerlize method
+    public void centerFrame(JFrame frame) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        // Determine the new location of the window
+        int w = frame.getSize().width;
+        int h = frame.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+        // Move the window
+        frame.setLocation(x, y);
+    }
+    /////end of method
+     //Home buttons
+    public void adminBrowseProducts() {
+        currentForm.setVisible(false);
+        currentForm = new AdminViewProducts(this);
+        currentForm.setVisible(true);
+    }
+    
+    public void showProdDetailsAdmin() {
+
+        currentForm.setVisible(false);
+        currentForm = new AdminProductDetails(this);
+        currentForm.setVisible(true);
+
+    }
+    
+    ////////////////////////////////////////// Admin Methods///////////////////////////
+    //1-first method -->browseProducts()(alredy exsit) to go to viewproduct form from control->product menu at admin profile
+    //2-second method to view users orders form from control->orders menu at admin profile
+    public void viewUserOrders() {
+        currentForm.setVisible(false);
+        currentForm = new AdminOrders(this);
+        currentForm.setVisible(true);
+    }
+
+    //3-third method to add supplier form from control->suppliers menu at admin profile
+    public void addSupplier() {
+        currentForm.setVisible(false);
+        currentForm = new AddSupplier(this);
+        currentForm.setVisible(true);
+    }
+
+    //4-add delivery boy form from control->delivery boy menu at admin profile
+    public void addDeliveryBoy() {
+        currentForm.setVisible(false);
+        currentForm = new AddDeliveryBoy(this);
+        currentForm.setVisible(true);
+    }
+    //admin profile form
+    public void showAdminProfile() {
+        currentForm.setVisible(false);
+        currentForm = new AdminProfile(this);
+        currentForm.setVisible(true);
+    }
+
+    //method which retrive admin profile data
+    public ArrayList getAdminProData() {
+        ArrayList dataList = new ArrayList();
+        dataList.add(userExist.getFullName());
+        dataList.add(userExist.getAddress());
+        dataList.add(userExist.getCity());
+        dataList.add(userExist.getEmail());
+        dataList.add(userExist.getPassword());
+        dataList.add(userExist.getPhone());
+        dataList.add(userExist.getPhoto2());
+        dataList.add(userExist.getCompany());
+        dataList.add(userExist.getUserId());
+
+        return dataList;
+    }
+
+    //method which update admin profile data 
+    public void updateaAdminData(String name, String email, String password, String phone, byte[] personimage, long id) throws SQLException {
+
+        userExist.setUserId(id);
+        userExist.setFullName(name);
+        userExist.setAddress(userExist.getAddress());
+        userExist.setCity(userExist.getCity());
+        userExist.setUserType(userExist.getUserType());
+        userExist.setEmail(email);
+        userExist.setPassword(password);
+        userExist.setPhone(Long.parseLong(phone));
+        userExist.setPhoto2(personimage);
+        int userUpdated = 0;
+        try {
+            UserService userService = new UserService();
+            userUpdated = userService.update2(userExist);
+            if (userUpdated > 0) {
+                JOptionPane.showMessageDialog(null, " your data updated successfully!");
+
+            } else {
+                JOptionPane.showMessageDialog(null, " Invalid data !!");
+
+            }
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, " Invalid data !!");
+
+        }
+    }
+
+    //method to add supplier
+    public void addSupplier_admin(String name, String address, int city, String email, String password, long phone, byte[] personimage, String company, int type) throws SQLException {
+        User user = new User();
+        user.setFullName(name);
+        user.setAddress(address);
+        user.setCity(city);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setPhoto2(personimage);
+        user.setCompany(company);
+        user.setUserType(type);
+        UserService uService = new UserService();
+        if (user != null) {
+            uService.insert2(user);
+            JOptionPane.showMessageDialog(null, "Supplier added successfully! ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid data entered !");
+        }
+
+    }
+
+    //method to add delivery boy
+    public void addDeleviry_admin(String name, String address, int city, String email, String password, long phone, byte[] personimage, String company, int type) throws SQLException {
+        User user = new User();
+        user.setFullName(name);
+        user.setAddress(address);
+        user.setCity(city);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setPhoto2(personimage);
+        user.setCompany(company);
+        user.setUserType(type);
+        UserService uService = new UserService();
+        if (user != null) {
+            uService.insert2(user);
+            JOptionPane.showMessageDialog(null, "Deliveryboy added successfully! ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid data entered !");
+        }
+
+    }
+
+    //method to display orders for admin
+    public ResultSet showRequiredOrdersAdmin() {
+        OrderService orderService = new OrderService();
+        ResultSet rs = null;
+        try {
+            rs = orderService.selectDataAsRSAdmin();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    //
+
+    //method to display products for admin
+    public ResultSet showProductsAdmin() {
+        OrderService orderService = new OrderService();
+        ResultSet rs = null;
+        try {
+            rs = orderService.selectProductsAsRSAdmin();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(currentForm,"failed to loade products ");
+        }
+        return rs;
+    }
+    //
+
+//    //select one product for admin
+//    long prod_id;
+//    //getter
+//    public long getProd_id() {
+//        return prod_id;
+//    }
+//    //setter
+//    public void setProd_id(long prod_id) {
+//        this.prod_id = prod_id;
+//
+//    }
+    //get one product data
+//    public ResultSet getOneProduct(long prod_id) {
+//        ProductService productservice = new ProductService();
+//        ResultSet rs = null;
+//        try {
+//            rs = productservice.selectOneProduct(prod_id);
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(currentForm,"failed to get product data");
+//        }
+//        return rs;
+//    }
+    ////////
+
+   // beanspkg.User userExist = new User();
+    // log in method
+//    public void login(String name, String password) {
+//        try {
+//            dto.Login logindata = new dto.Login(name, password); //DTO "Data Transfer Object"
+//            UserService userService = new UserService();
+//            //beanspkg.User userExist = userService.login(logindata);
+//            userExist = userService.login(logindata);//get all user data if userExist
+//            if (userExist.getUserId() > 0) {
+//                currentForm.setVisible(false); //Login hide
+//                currentForm = checkUserType(userExist.getUserType()); // main form for each user
+//                currentForm.setVisible(true); // display it
+//            } else {
+//                ((Login) currentForm).showErrorDialog("This is not a valid cresentials .. !");
+//
+//            }
+//        } catch (Exception ex) {
+//            ((Login) currentForm).showErrorDialog("Can not connect to DB right now, please call 8008280 for help.. !");
+//
+//        }
+//    }
+    
+//    public JFrame checkUserType(int type) {
+//        switch (type) {
+//            case 1: {
+//                currentForm = new AdminViewProducts(this);
+//                break;
+//            }
+//            case 2:
+//                //currentForm = new SupplierProfile(this);
+//                break;
+//            case 3:
+//                //currentForm = new UserProfile(this);
+//                break;
+//            case 4:
+//                //currentForm = new DeliveryProfile(this);
+//                break;
+//            default:
+//                currentForm = new Home(this);
+//        }
+//        return currentForm;
+//    }
+// end of maincontroller 
 }

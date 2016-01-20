@@ -1,14 +1,22 @@
 package beanspkg;
 import java.sql.*;
 public class User {
-	private int userId;
-	public int getUserId() {
+        private long userId;
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+//	private int userId2;
+//	public int getUserId2() {
+//		return userId2;
+//	}
+//
+//	public void setUserId2(int userId) {
+//		this.userId2 = userId;
+//	}
 
 	private String fullName;
 	public String getFullName() {
@@ -54,15 +62,24 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	private String phone;
-	public String getPhone() {
+        
+        private long phone;
+	public long getPhone() {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(long phone) {
 		this.phone = phone;
 	}
+
+//	private String phone;
+//	public String getPhone() {
+//		return phone;
+//	}
+//
+//	public void setPhone(String phone) {
+//		this.phone = phone;
+//	}
 
 	private Blob photo;
 	public Blob getPhoto() {
@@ -72,6 +89,17 @@ public class User {
 	public void setPhoto(Blob photo) {
 		this.photo = photo;
 	}
+        
+        //photo as bytes[]
+        private byte [] photo2;
+	public byte[]getPhoto2() {
+		return  photo2;
+	}
+
+	public void setPhoto2(byte [] photo) {
+		this.photo2 = photo2;
+	}
+        ///////////end//////////
 
 	private int userType;
 	public int getUserType() {
