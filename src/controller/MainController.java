@@ -10,8 +10,11 @@ import beanspkg.User;
 import beanspkg.UserRateProduct;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,25 +24,33 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import servicespkg.CategoryService;
+import servicespkg.DbService;
 import servicespkg.OrderService;
 import servicespkg.ProductService;
 import servicespkg.UserRateProductService;
 import servicespkg.UserService;
 import view.AddDeliveryBoy;
+import view.AddProducts;
 import view.AddSupplier;
 import view.AdminOrders;
 import view.AdminProductDetails;
 import view.AdminProfile;
 import view.AdminViewProducts;
+import view.Category;
 import view.DeliveryOrder;
 import view.DeliveryProfile;
 import view.Home;
 import view.Login;
 import view.ProductDetails;
+import view.SignUp;
+import view.SupplierProfile;
+import view.SupplierViewProducts;
 import view.UserOrder;
 import view.UserProfile;
 import view.Utility;
 import view.ViewProducts;
+import view.VisitorProductDetails;
+import view.VisitorViewProducts;
 
 /**
  *
@@ -146,7 +157,7 @@ public class MainController {
                 currentForm = checkUserType(userExist.getUserType()); // instantiate object of "Edit the comment to describe"
                 currentForm.setVisible(true);
             } else {
-                ((Login) currentForm).showErrorDialog("This is not a valid cresentials .. !");
+                ((Login) currentForm).showErrorDialog("This is not a valid credentials .. !");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(currentForm, "This is a not a valid cresential ...");
@@ -159,7 +170,7 @@ public class MainController {
                 currentForm = new AdminViewProducts(this);
                 break;
             case 2:
-                 //currentForm = new SupplierProfile(this);
+                 currentForm = new SupplierViewProducts(this);
                 break;
             case 3:
                 currentForm = new UserProfile(this);
@@ -611,5 +622,199 @@ public class MainController {
             JOptionPane.showMessageDialog(currentForm,"failed to loade products ");
         }
         return rs;
+    }
+   
+    //Hagar Code
+    // Displaying Forms Methods
+
+    public void signUp() {
+        currentForm.setVisible(true);
+        currentForm = new SignUp(this);
+        currentForm.setVisible(true);
+    }
+
+    public void signOut() {
+        System.exit(0);
+    }
+
+    public void viewSupplierProfile() {
+
+        currentForm = new SupplierProfile(this);
+        currentForm.setVisible(true);
+    }
+  public void VisitorviewProducts(){
+        currentForm = new VisitorViewProducts(this);
+        currentForm.setVisible(true);
+ }
+  
+   public void VisitorProductsDetails(){
+         currentForm.setVisible(true);
+        currentForm = new VisitorProductDetails(this);
+        currentForm.setVisible(true);
+ }
+    public void addProduct() {
+
+        currentForm = new AddProducts(this);
+        currentForm.setVisible(true);
+        currentForm.setAlwaysOnTop(true);
+
+    }
+
+    public void addCategory() {
+
+        currentForm = new Category(this);
+        currentForm.setVisible(true);
+        currentForm.setAlwaysOnTop(true);
+    }
+
+    //Getting user ID
+    public int checkUserID() {
+
+        int id = (int) userExist.getUserId();
+        return id;
+    }
+    //Getting user Type 
+
+  
+    // Displaying data in the Supplier profile
+
+    public ArrayList retrieveData() {
+
+        ArrayList data = new ArrayList();
+        data.add(userExist.getFullName());
+        data.add(userExist.getCompany());
+        data.add(userExist.getEmail());
+        data.add(userExist.getPhone());
+        data.add(userExist.getPassword());
+        return data;
+
+    }
+//Updating data in the Supplier profile
+
+    public void updateSupplierData(String sName, String sCompany, String sEmail, int sPhone, String sPassword) {
+
+        UserService uService = new UserService();
+        System.out.println("UserExist" + userExist.getUserId());
+        userExist.setFullName(sName);
+        userExist.setCompany(sCompany);
+        userExist.setEmail(sEmail);
+        userExist.setPhone(sPhone);
+        userExist.setPassword(sPassword);
+
+        try {
+            int worAffected = uService.update(userExist);
+            if (worAffected > 0) {
+                ((SupplierProfile) currentForm).showSuccess(worAffected);
+            } else {
+                ((SupplierProfile) currentForm).showSuccess(worAffected);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    // Sign Up method
+
+    public void signUPData(String fullName, int city, String email, String address, String password, String company, long phone, long userType) throws SQLException {
+
+        UserService uService = new UserService();
+        beanspkg.User item = new beanspkg.User(fullName, email, city, address, password, company, phone, userType);
+        System.out.println(userType);
+        System.out.println(item.getUserType());
+        uService.insert(item);
+        JOptionPane.showMessageDialog(null, "Your registration done successfully! ");
+
+    }
+    // Inserting new Category to database
+
+    public void addCategory(String description) throws SQLException {
+
+        CategoryService catService = new CategoryService();
+        beanspkg.CategoryBean item = new beanspkg.CategoryBean(description);
+        catService.insert(item);
+
+    }
+    //Deleting category from database
+
+    public void deleteCategory(int catID) throws SQLException {
+
+        CategoryService catService = new CategoryService();
+        beanspkg.CategoryBean item = new beanspkg.CategoryBean(catID);
+        catService.delete(catID);
+    }
+
+    //Retrieving categories from database
+    public ResultSet viewCategory() throws SQLException {
+
+        Connection connection = null;
+        connection = DbService.getConnection();
+        Statement stmnt = connection.createStatement();
+        ResultSet rs = stmnt.executeQuery("SELECT cat_id as ID, cat_desc as Description FROM `category`");
+        return rs;
+    }
+    //Retrieving products from database
+
+    public ResultSet viewProTable() throws SQLException {
+
+        Connection connection = null;
+        connection = DbService.getConnection();
+        Statement stmnt = connection.createStatement();
+        ResultSet rs = stmnt.executeQuery("SELECT prod_id as ID, prod_size as Size, prod_condition as ProCondition,  in_stock as Quantity, photo as Image,  price as Price,  off_sale as Sale, cat_id as Category,  prod_name as Name,  prod_color as Color  FROM `scart`.`product`");
+        return rs;
+    }
+    //Updating categories
+
+    public void updateCategory(int catID, String desc) throws SQLException {
+
+        CategoryService catService = new CategoryService();
+        beanspkg.CategoryBean item = new beanspkg.CategoryBean(catID, desc);
+        catService.update(item);
+    }
+
+    //Inserting new product
+    public void addProductData(int size, int prodCondition, int quantity, int price, int sale, int id, long category, String name, String color) throws SQLException {
+
+        id = (int) userExist.getUserId();
+        ProductService prodService = new ProductService();
+        beanspkg.Product item = new beanspkg.Product(size, prodCondition, quantity, price, sale, id, category, name, color);
+        prodService.insert(item);
+
+    }
+
+    //Deleting product
+    public void DeleteProductData(int proID) throws SQLException {
+
+        ProductService prodService = new ProductService();
+        beanspkg.Product item = new beanspkg.Product(proID);
+        prodService.delete(proID);
+
+    }
+    //Updating product
+
+    public void updateProdTable(int proID, int size, int prodCondition, int quantity, Blob image, int price, int sale, int id, long category, String name, String color) throws SQLException {
+
+        ProductService prodService = new ProductService();
+        beanspkg.Product item = new beanspkg.Product(proID, size, prodCondition, quantity, image, price, sale, id, category, name, color);
+        prodService.update(item);
+    }
+ 
+
+    //Getting category ComboBox items IDs
+    public long getCategory(String catName) throws SQLException {
+        CategoryService categoryService = new CategoryService();
+        beanspkg.CategoryBean item = new beanspkg.CategoryBean();
+        item = categoryService.selectCat(catName);
+
+        return item.getCatId();
+    }
+    //Getting category ComboBox items Names
+
+    public String getCategoryName(int catID) throws SQLException {
+        CategoryService categoryService = new CategoryService();
+        beanspkg.Category item = new beanspkg.Category();
+        item = categoryService.selectOne(catID);
+
+        return item.getCatDesc();
     }
 }

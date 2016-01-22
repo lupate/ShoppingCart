@@ -66,8 +66,39 @@ public class CategoryService {
 		}
 
 	}
+                    public CategoryBean selectCat (String catName) throws SQLException {
+		Connection connection = null;
+		CategoryBean item = null;
+		try {
+			connection = DbService.getConnection();
+			Statement stmnt = connection.createStatement();
+                                                                System.out.println(catName);
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM category WHERE cat_desc like'" + catName + "%'");
+                                                                
+			int count = 0;
+			while(rs.next()){
+				count++;
+				if(count == 1){
+					item = new CategoryBean();
+					item.setCatId(rs.getInt(1));
+					item.setCatDesc(rs.getString(2));
+				}
 
-	public int insert(Category item) throws SQLException {
+				else{
+					throw new MoreThanOneItemException();
+				}
+
+			}
+
+			rs.close();
+			stmnt.close();
+		}
+
+		finally {
+			return item;
+		}}
+
+	public int insert(CategoryBean item) throws SQLException {
 		Connection connection = null;
 		try {
 			connection = DbService.getConnection();
@@ -92,7 +123,7 @@ public class CategoryService {
 
 	}
 
-	public int update(Category item) throws SQLException {
+	public int update(CategoryBean item) throws SQLException {
 		Connection connection = null;
 		try {
 			connection = DbService.getConnection();

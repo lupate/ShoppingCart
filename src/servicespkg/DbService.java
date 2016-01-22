@@ -12,7 +12,7 @@ public class DbService {
     static String url = "jdbc:mysql://localhost:3306/scart";
     static String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
     static String username = "root";
-    static String password = "admin";
+    static String password = "root";
 
     private static Connection connection;
 

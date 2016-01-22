@@ -1,7 +1,62 @@
 package beanspkg;
 import java.sql.*;
 public class Product {
-	private long prodId;
+         
+          private long prodId;
+          public Product(){
+         
+     }
+    public Product( int proID, int size, int prodCondition, int quantity, Blob image, int price, int sale, int id, long category, String name, String color) {
+      
+        this.prodId=proID;
+        this.prodSize = size;
+        this.prodCondition = prodCondition;
+        this.inStock = quantity;
+        this.photo= image;
+        this.price = price;
+        this.offSale = sale;
+        this.userId = id;
+        this.catId = category;
+        this.prodName = name;
+        this.prodColor = color;
+        
+
+    }
+
+    public Product(int proID,int size, int prodCondition, int quantity, int price, int sale, int id, int category, String name, String color) {
+      
+        this.prodId= proID;
+        this.prodSize = size;
+        this.prodCondition = prodCondition;
+        this.inStock = quantity;
+        //   this.photo= image;
+        this.price = price;
+        this.offSale = sale;
+        this.userId = id;
+        this.catId = category;
+        this.prodName = name;
+        this.prodColor = color;
+    }
+
+    public Product(int size, int prodCondition, int quantity, int price, int sale, int id, long category, String name, String color) {
+  
+        this.prodSize = size;
+        this.prodCondition = prodCondition;
+        this.inStock = quantity;
+        //   this.photo= image;
+        this.price = price;
+        this.offSale = sale;
+        this.userId = id;
+        this.catId = category;
+        this.prodName = name;
+        this.prodColor = color;
+        
+    }
+
+    public Product(int proID) {
+       this.prodId= proID;
+    }
+    
 	public long getProdId() {
 		return prodId;
 	}

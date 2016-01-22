@@ -5,7 +5,7 @@
  */
 package view;
 
-import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import javax.swing.UIManager;
 
 /**
@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 public class Shared {
      public static void themeLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(new SyntheticaClassyLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
         } catch (Exception e) {
             e.printStackTrace();
         }

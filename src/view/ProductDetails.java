@@ -331,7 +331,7 @@ public class ProductDetails extends javax.swing.JFrame {
             System.out.println(cart1);
         }
         controller.showCustomerOrder();
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -377,13 +377,13 @@ public class ProductDetails extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 
-        controller.browseProducts();// TODO add your handling code here:
+        controller.browseProducts();
 }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
 
         controller.browseProducts();
-        // TODO add your handling code here:
+
     }                                  
     //Rate
 
