@@ -8,6 +8,8 @@ package controller;
 import beanspkg.Order;
 import beanspkg.User;
 import beanspkg.UserRateProduct;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,6 +25,12 @@ import servicespkg.OrderService;
 import servicespkg.ProductService;
 import servicespkg.UserRateProductService;
 import servicespkg.UserService;
+import view.AddDeliveryBoy;
+import view.AddSupplier;
+import view.AdminOrders;
+import view.AdminProductDetails;
+import view.AdminProfile;
+import view.AdminViewProducts;
 import view.DeliveryOrder;
 import view.DeliveryProfile;
 import view.Home;
@@ -148,10 +156,10 @@ public class MainController {
     public JFrame checkUserType(int type) {
         switch (type) {
             case 1:
-                //currentForm = new AdminProfile(this);
+                currentForm = new AdminViewProducts(this);
                 break;
             case 2:
-                // currentForm = new SupplierProfile(this);
+                 //currentForm = new SupplierProfile(this);
                 break;
             case 3:
                 currentForm = new UserProfile(this);
@@ -179,7 +187,7 @@ public class MainController {
         UserService uService = new UserService();
         userExist.setFullName(t1);
         userExist.setEmail(t2);
-        userExist.setPhone(t3);
+        //userExist.setPhone(t3);
         userExist.setPassword(t4);
         try {
             int worAffected = uService.update(userExist);
@@ -429,14 +437,5 @@ public class MainController {
     //Save order into DB
     public void saveOrder(){
         order.setUserId((int) userExist.getUserId());
-        order.setAddress(userExist.getAddress());
-        order.setStatus(0);
-        try {
-            orderService.insert(order);
-        } catch (SQLException ex) {
-            System.out.println("Check your DB server");
-        }
-    }
-
-    
-}
+=======
+        //order.setUserId(userExist.getUserId());
