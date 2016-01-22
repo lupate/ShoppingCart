@@ -5,7 +5,6 @@
  */
 package view;
 
-
 import controller.MainController;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -14,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -28,20 +28,18 @@ public class DeliveryProfile extends javax.swing.JFrame {
      * Creates new form DeliveryProfile
      */
     MainController controller;
+
     public DeliveryProfile() {
         initComponents();
     }
-    
+
     public DeliveryProfile(MainController athis) {
-         this();
+        this();
         controller = athis;
         Utility.centerFrame(this);
         Utility.setFormIcon(this);
     }
 
-    
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -239,8 +237,8 @@ public class DeliveryProfile extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
         controller.delOrder();// TODO add your handling code here:
@@ -255,17 +253,16 @@ public class DeliveryProfile extends javax.swing.JFrame {
     private void imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imageActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_imageActionPerformed
-     public Image resizeimage(Image img, int w, int h) {
+    public Image resizeimage(Image img, int w, int h) {
         BufferedImage resizedimage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedimage.createGraphics();
         g2.drawImage(img, 0, 0, w, h, null);
         g2.dispose();
         return resizedimage;
-        }
-       
-    
+    }
+
     byte[] DeliveryImage = null;
- 
+
     private void chooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseActionPerformed
         // TODO add your handling code here:
 
@@ -274,7 +271,7 @@ public class DeliveryProfile extends javax.swing.JFrame {
         //get getSelectedFile path
         File file = filechooser.getSelectedFile();
         //put getSelectedFile in textfild
-        if(file!=null){
+        if (file != null) {
             image.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
             image.setText(file.getAbsolutePath());
             image.setEnabled(false);
@@ -286,9 +283,9 @@ public class DeliveryProfile extends javax.swing.JFrame {
                 for (int readnum; (readnum = fis.read(buffer)) != -1;) {
                     bos.write(buffer, 0, readnum);
                 }
-               DeliveryImage = bos.toByteArray();
-                ImageIcon imgicon = new ImageIcon( DeliveryImage);
-                jLabel1.setIcon(new ImageIcon(resizeimage(imgicon.getImage(),jLabel1.getWidth(),jLabel1.getHeight())));
+                DeliveryImage = bos.toByteArray();
+                ImageIcon imgicon = new ImageIcon(DeliveryImage);
+                jLabel1.setIcon(new ImageIcon(resizeimage(imgicon.getImage(), jLabel1.getWidth(), jLabel1.getHeight())));
             } catch (Exception ex) {
                 ex.getMessage();
             }
@@ -299,26 +296,26 @@ public class DeliveryProfile extends javax.swing.JFrame {
 
         String n = name.getText();
         String e = email.getText();
-        String ph = phone.getText();
+        long ph = Long.parseLong(phone.getText());
         String pass = jPassword.getText();
-        controller.updateData(n, e, ph, pass); 
-       // TODO add your handling code here:
+        controller.updateData(n, e, ph, pass);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void showSuccess(String str){
+    public void showSuccess(String str) {
         JOptionPane.showMessageDialog(null, str);
-}
-    
+    }
+
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        String[] data= controller.loadDataToForm();
-        name.setText(data[0]);
-        email.setText(data[1]);
-        phone.setText(data[2]);
+        ArrayList data = controller.loadDataToForm();
+        name.setText((String) data.get(0));
+        email.setText((String) data.get(1));
+        phone.setText((String) data.get(2));
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       
+
         controller.signIn();
 
     }//GEN-LAST:event_formWindowClosing
@@ -326,7 +323,6 @@ public class DeliveryProfile extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton choose;

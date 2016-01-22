@@ -201,9 +201,10 @@ public class UserService {
                 + ", email = '" + item.getEmail()
                 + "', password = '" + item.getPassword()
                 + "', phone = " + item.getPhone()
-                + ", photo = " + item.getPhoto()
+//                + ", photo = " + item.getPhoto()
                 + ", user_type = " + item.getUserType()
                 + ", company = '" + item.getCompany() + "' WHERE " + "user_id = " + item.getUserId();
+        System.out.println(updateQuery);
         updateQuery = updateQuery.replace("'null'", "null");
         int rowsAffected = stmnt.executeUpdate(updateQuery);
         stmnt.close();

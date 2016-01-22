@@ -187,7 +187,7 @@ public class MainController {
         UserService uService = new UserService();
         userExist.setFullName(t1);
         userExist.setEmail(t2);
-        //userExist.setPhone(t3);
+        userExist.setPhone(t3);
         userExist.setPassword(t4);
         try {
             int worAffected = uService.update(userExist);
@@ -437,5 +437,179 @@ public class MainController {
     //Save order into DB
     public void saveOrder(){
         order.setUserId((int) userExist.getUserId());
-=======
-        //order.setUserId(userExist.getUserId());
+    }
+
+    
+    ///////////////////mohammed///////////
+    
+     //centerlize method
+    public void centerFrame(JFrame frame) {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        // Determine the new location of the window
+        int w = frame.getSize().width;
+        int h = frame.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+        // Move the window
+        frame.setLocation(x, y);
+    }
+    /////end of method
+     //Home buttons
+    public void adminBrowseProducts() {
+        currentForm.setVisible(false);
+        currentForm = new AdminViewProducts(this);
+        currentForm.setVisible(true);
+    }
+    
+    public void showProdDetailsAdmin() {
+
+        currentForm.setVisible(false);
+        currentForm = new AdminProductDetails(this);
+        currentForm.setVisible(true);
+
+    }
+    
+    ////////////////////////////////////////// Admin Methods///////////////////////////
+    //1-first method -->browseProducts()(alredy exsit) to go to viewproduct form from control->product menu at admin profile
+    //2-second method to view users orders form from control->orders menu at admin profile
+    public void viewUserOrders() {
+        currentForm.setVisible(false);
+        currentForm = new AdminOrders(this);
+        currentForm.setVisible(true);
+    }
+
+    //3-third method to add supplier form from control->suppliers menu at admin profile
+    public void addSupplier() {
+        currentForm.setVisible(false);
+        currentForm = new AddSupplier(this);
+        currentForm.setVisible(true);
+    }
+
+    //4-add delivery boy form from control->delivery boy menu at admin profile
+    public void addDeliveryBoy() {
+        currentForm.setVisible(false);
+        currentForm = new AddDeliveryBoy(this);
+        currentForm.setVisible(true);
+    }
+    //admin profile form
+    public void showAdminProfile() {
+        currentForm.setVisible(false);
+        currentForm = new AdminProfile(this);
+        currentForm.setVisible(true);
+    }
+
+    //method which retrive admin profile data
+    public ArrayList getAdminProData() {
+        ArrayList dataList = new ArrayList();
+        dataList.add(userExist.getFullName());
+        dataList.add(userExist.getAddress());
+        dataList.add(userExist.getCity());
+        dataList.add(userExist.getEmail());
+        dataList.add(userExist.getPassword());
+        dataList.add(userExist.getPhone());
+        dataList.add(userExist.getPhoto2());
+        dataList.add(userExist.getCompany());
+        dataList.add(userExist.getUserId());
+
+        return dataList;
+    }
+
+    //method which update admin profile data 
+    public void updateaAdminData(String name, String email, String password, String phone, byte[] personimage, long id) throws SQLException {
+
+        userExist.setUserId(id);
+        userExist.setFullName(name);
+        userExist.setAddress(userExist.getAddress());
+        userExist.setCity(userExist.getCity());
+        userExist.setUserType(userExist.getUserType());
+        userExist.setEmail(email);
+        userExist.setPassword(password);
+        userExist.setPhone(Long.parseLong(phone));
+        userExist.setPhoto2(personimage);
+        int userUpdated = 0;
+        try {
+            UserService userService = new UserService();
+            userUpdated = userService.update2(userExist);
+            if (userUpdated > 0) {
+                JOptionPane.showMessageDialog(null, " your data updated successfully!");
+
+            } else {
+                JOptionPane.showMessageDialog(null, " Invalid data !!");
+
+            }
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, " Invalid data !!");
+
+        }
+    }
+
+    //method to add supplier
+    public void addSupplier_admin(String name, String address, int city, String email, String password, long phone, byte[] personimage, String company, int type) throws SQLException {
+        User user = new User();
+        user.setFullName(name);
+        user.setAddress(address);
+        user.setCity(city);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setPhoto2(personimage);
+        user.setCompany(company);
+        user.setUserType(type);
+        UserService uService = new UserService();
+        if (user != null) {
+            uService.insert2(user);
+            JOptionPane.showMessageDialog(null, "Supplier added successfully! ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid data entered !");
+        }
+
+    }
+
+    //method to add delivery boy
+    public void addDeleviry_admin(String name, String address, int city, String email, String password, long phone, byte[] personimage, String company, int type) throws SQLException {
+        User user = new User();
+        user.setFullName(name);
+        user.setAddress(address);
+        user.setCity(city);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setPhone(phone);
+        user.setPhoto2(personimage);
+        user.setCompany(company);
+        user.setUserType(type);
+        UserService uService = new UserService();
+        if (user != null) {
+            uService.insert2(user);
+            JOptionPane.showMessageDialog(null, "Deliveryboy added successfully! ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid data entered !");
+        }
+
+    }
+
+    //method to display orders for admin
+    public ResultSet showRequiredOrdersAdmin() {
+        OrderService orderService = new OrderService();
+        ResultSet rs = null;
+        try {
+            rs = orderService.selectDataAsRSAdmin();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    //
+
+    //method to display products for admin
+    public ResultSet showProductsAdmin() {
+        OrderService orderService = new OrderService();
+        ResultSet rs = null;
+        try {
+            rs = orderService.selectProductsAsRSAdmin();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(currentForm,"failed to loade products ");
+        }
+        return rs;
+    }
+}

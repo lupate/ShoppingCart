@@ -9,6 +9,8 @@ import controller.MainController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import static view.Utility.rate;
@@ -354,7 +356,7 @@ public class ProductDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {                                     
 
         try {
             ResultSet res = controller.getOneProduct(controller.getProd_id());
@@ -365,4 +367,56 @@ public class ProductDetails extends javax.swing.JFrame {
                 color.setText(res.getString(11));
                 offer.setText(res.getInt(7) + "");
                 rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), (int) controller.getUserID())));
-                //rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), controller.getUserID())));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //For like and unlike radiobuttons
+        groupButton();
+    }
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+        controller.browseProducts();// TODO add your handling code here:
+}
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+
+        controller.browseProducts();
+        // TODO add your handling code here:
+    }                                  
+    //Rate
+
+    private void groupButton() {
+        ButtonGroup bg1 = new ButtonGroup();
+        bg1.add(jRadioButton1);
+        bg1.add(jRadioButton2);
+    }
+
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JSpinner Quantity;
+    private javax.swing.JLabel color;
+    private javax.swing.JLabel imagelabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel offer;
+    private javax.swing.JLabel price;
+    private javax.swing.JLabel rating;
+    private javax.swing.JLabel size;
+    // End of variables declaration                   
+}

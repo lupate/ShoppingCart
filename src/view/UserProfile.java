@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -277,9 +278,6 @@ public class UserProfile extends javax.swing.JFrame {
             ResultSet rs = stmnt.executeQuery(query);
            while (rs.next()) {
              name.setText(rs.getString("full_name"));
-           
-          //     jTextField4.setText(rs.getString("address"));
-         //      jTextField5.setText(rs.getString("city"));
               phone.setText(rs.getString("phone"));
                image.setText(rs.getString("photo"));
                jPassword.setText(rs.getString("password"));
@@ -339,7 +337,7 @@ public class UserProfile extends javax.swing.JFrame {
 
         String n = name.getText();
         String e = email.getText();
-        String ph = phone.getText();
+        long ph = Long.parseLong(phone.getText());
         String pass = jPassword.getText();
         controller.updateData(n, e, ph, pass); 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -347,10 +345,10 @@ public class UserProfile extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
         
-        String[] data = controller.loadDataToForm();
-        name.setText(data[0]);
-        email.setText(data[1]);
-        phone.setText(data[2]);
+        ArrayList data = controller.loadDataToForm();
+        name.setText((String) data.get(0));
+        email.setText((String) data.get(1));
+        phone.setText((String) data.get(2));
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
