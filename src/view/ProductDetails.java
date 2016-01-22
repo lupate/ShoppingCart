@@ -364,7 +364,11 @@ public class ProductDetails extends javax.swing.JFrame {
                 size.setText(res.getInt(2) + "");
                 color.setText(res.getString(11));
                 offer.setText(res.getInt(7) + "");
+<<<<<<< HEAD
                 //rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), controller.getUserID())));
+=======
+                rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), controller.getUserID())));
+>>>>>>> origin/master
             }
         } catch (SQLException ex) {
             rating.setText("0");
