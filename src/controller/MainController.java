@@ -448,8 +448,14 @@ public class MainController {
     //Save order into DB
     public void saveOrder(){
         order.setUserId((int) userExist.getUserId());
+        order.setAddress(userExist.getAddress());
+        order.setStatus(0);
+        try {
+            orderService.insert(order);
+        } catch (SQLException ex) {
+            System.out.println("Check your DB server");
+        }
     }
-
     
     ///////////////////mohammed///////////
     

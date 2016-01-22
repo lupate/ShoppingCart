@@ -6,6 +6,7 @@
 package view;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaClassyLookAndFeel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -36,9 +37,10 @@ public class Utility {
     }
      public static void themeLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaClassyLookAndFeel());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+//            e.printStackTrace();
         }
     }
    
