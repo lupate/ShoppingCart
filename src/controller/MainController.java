@@ -165,17 +165,17 @@ public class MainController {
         return currentForm;
     }
 
-    //Load Profile data  WRONG !!   "Edited"
-    public String[] loadDataToForm() {
-        String[] data = new String[3];
-        data[0] = userExist.getFullName();
-        data[1] = userExist.getEmail();
-        data[2] = userExist.getPhone();
-        return data;
+    //Load Profile data
+    public ArrayList loadDataToForm() {
+        ArrayList list = new ArrayList();
+        list.add(userExist.getFullName());
+        list.add(userExist.getEmail());
+        list.add(String.valueOf(userExist.getPhone()));
+        return list;
     }
 
     //Update data from delivery form to DB
-    public void updateData(String t1, String t2, String t3, String t4) {
+    public void updateData(String t1, String t2, long t3, String t4) {
         UserService uService = new UserService();
         userExist.setFullName(t1);
         userExist.setEmail(t2);
@@ -220,8 +220,7 @@ public class MainController {
         OrderService o = new OrderService();
         try {
            order = o.selectOne(order_id);
-           //order.setOrderId(order_id);
-           order.setUserId(userExist.getUserId());
+           order.setUserId((int) userExist.getUserId());
            order.setStatus(1);
            java.util.Date date= new java.util.Date();
            order.setDeliveryDate(new Timestamp(date.getTime()));
@@ -364,7 +363,7 @@ public class MainController {
     }
 
     // Get current user id
-    public int getUserID() {
+    public long getUserID() {
         return userExist.getUserId();
     }
 
@@ -429,7 +428,7 @@ public class MainController {
     }
     //Save order into DB
     public void saveOrder(){
-        order.setUserId(userExist.getUserId());
+        order.setUserId((int) userExist.getUserId());
         order.setAddress(userExist.getAddress());
         order.setStatus(0);
         try {

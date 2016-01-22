@@ -334,7 +334,7 @@ public class ProductDetails extends javax.swing.JFrame {
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
 
-        rate = controller.getProductRate(controller.getProd_id(), controller.getUserID());
+        rate = controller.getProductRate(controller.getProd_id(), (int) controller.getUserID());
         rate--;
         controller.setProductRate();
         JOptionPane.showMessageDialog(rootPane, "Thanks for rate.");
@@ -345,7 +345,7 @@ public class ProductDetails extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
 
-        rate = controller.getProductRate(controller.getProd_id(), controller.getUserID());
+        rate = controller.getProductRate(controller.getProd_id(), (int) controller.getUserID());
         rate++;
         controller.setProductRate();
         JOptionPane.showMessageDialog(rootPane, "Thanks for rate.");
@@ -364,7 +364,7 @@ public class ProductDetails extends javax.swing.JFrame {
                 size.setText(res.getInt(2) + "");
                 color.setText(res.getString(11));
                 offer.setText(res.getInt(7) + "");
-                rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), controller.getUserID())));
+                rating.setText(String.valueOf(controller.getProductRate(controller.getProd_id(), (int) controller.getUserID())));
             }
         } catch (SQLException ex) {
             rating.setText("0");

@@ -25,7 +25,7 @@ public class UserService {
                 item.setCity(rs.getLong(4));
                 item.setEmail(rs.getString(5));
                 item.setPassword(rs.getString(6));
-                item.setPhone(rs.getString(7));
+                item.setPhone(rs.getLong(7));
                 item.setPhoto(rs.getBlob(8));
                 item.setUserType(rs.getInt(9));
                 item.setCompany(rs.getString(10));
@@ -68,7 +68,7 @@ public class UserService {
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getString(7));
+                    item.setPhone(rs.getLong(7));
                     item.setPhoto(rs.getBlob(8));
                     item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
@@ -108,7 +108,7 @@ public class UserService {
                     item.setCity(rs.getLong(4));
                     item.setEmail(rs.getString(5));
                     item.setPassword(rs.getString(6));
-                    item.setPhone(rs.getString(7));
+                    item.setPhone(rs.getLong(7));
                     item.setPhoto(rs.getBlob(8));
                     item.setUserType(rs.getInt(9));
                     item.setCompany(rs.getString(10));
@@ -162,7 +162,6 @@ public class UserService {
         Connection connection = null;
         connection = DbService.getConnection();
         Statement stmnt = connection.createStatement();
-        System.out.println("User ID" + item.getUserId());
         String updateQuery = "UPDATE user SET full_name = '" + item.getFullName()
                 + "', address = '" + item.getAddress()
                 + "', city = " + item.getCity()
@@ -180,7 +179,6 @@ public class UserService {
         } else {
             return -1;
         }
-
     }
 
     public int delete(long userId) throws SQLException {
